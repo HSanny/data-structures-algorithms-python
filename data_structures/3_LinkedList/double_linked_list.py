@@ -14,11 +14,12 @@ class DoubleLinkedList:
             raise Exception("The linked list is empty")
 
         current_node = self.head
-        ll_str = ""
+        ll_str = str(self.head.data)
         while current_node:
-            ll_str += str(current_node.data) + '-->' + str(current_node.next.data) if current_node.next else None
+            ll_str += ' --> ' + str(current_node.next.data) if current_node.next else ""
             current_node = current_node.next
-        print(ll_str)
+        print("Linked List:", ll_str)
+
     def print_backward(self):
         if self.head is None:
             raise Exception("The linked list is empty")
@@ -26,11 +27,11 @@ class DoubleLinkedList:
         ll_str = ""
         while current_node:
             if current_node.next:
-                ll_str += str(current_node.next.data) + str(current_node.data)
+                ll_str += str(current_node.data) + ' <-- '
             else:
                 ll_str += "" + str(current_node.data)
             current_node = current_node.next
-        print(ll_str)
+        print("Link list in reverse: ", ll_str)
 
     def get_last_node(self):
         if self.head is None:
@@ -85,11 +86,23 @@ class DoubleLinkedList:
                 curr_node.next = new_node
                 return
             curr_node = curr_node.next
+
     def remove_at(self, index):
-        return
+        if index < 0 or index > self.get_length():
+            raise Exception("Invalid index had been given !!")
+        if self.head is None:
+            raise Exception("The list is empty !!")
+        curr_ind = 0
+        curr_node = self.head
+        while curr_node:
+            if curr_ind == index - 1:
+                curr_node.next = curr_node.next.next
+                return
+            curr_node = curr_node.next
 
     def insert_values(self, data_list):
-        return
+        for data in data_list:
+            self.insert_at_end(data)
 
 
 if __name__ == '__main__':

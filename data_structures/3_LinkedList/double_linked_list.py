@@ -14,9 +14,9 @@ class DoubleLinkedList:
             raise Exception("The linked list is empty")
 
         current_node = self.head
-        ll_str = str(self.head.data)
+        ll_str = 'Head --> ' + str(self.head.data)
         while current_node:
-            ll_str += ' --> ' + str(current_node.next.data) if current_node.next else ""
+            ll_str += ' --> ' + str(current_node.next.data) if current_node.next else ' --> None '
             current_node = current_node.next
         print("Linked List:", ll_str)
 
@@ -24,12 +24,12 @@ class DoubleLinkedList:
         if self.head is None:
             raise Exception("The linked list is empty")
         current_node = self.head
-        ll_str = ""
+        ll_str = "Head <-- "
         while current_node:
             if current_node.next:
                 ll_str += str(current_node.data) + ' <-- '
             else:
-                ll_str += "" + str(current_node.data)
+                ll_str += str(current_node.data) + ' <-- None '
             current_node = current_node.next
         print("Link list in reverse: ", ll_str)
 
@@ -72,20 +72,19 @@ class DoubleLinkedList:
     def insert_at(self, index, data):
         if index < 0 or index > self.get_length():
             raise Exception("Invalid index had been given !!")
-        if self.head is None:
-            if index == 0:
-                self.head = Node(None, data, None)
-                return
-            else:
-                raise Exception("The list is empty")
+        if index == 0:
+            new_node = Node(None, data, next=self.head)
+            self.head = new_node
+            return
         curr_ind = 0
         curr_node = self.head
         while curr_node:
             if curr_ind == index - 1:
-                new_node = Node(curr_node.next, data, curr_node.next.prev)
+                new_node = Node(prev=curr_node, data=data, next=curr_node.next)
                 curr_node.next = new_node
                 return
             curr_node = curr_node.next
+            curr_ind += 1
 
     def remove_at(self, index):
         if index < 0 or index > self.get_length():
